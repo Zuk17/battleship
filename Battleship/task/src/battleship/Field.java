@@ -1,11 +1,15 @@
 package battleship;
 
+import java.util.ArrayList;
+
 public class Field {
     private int sizeA = 10;
     private int size1 = 10;
     private Mark[][] field;
     private char[] rows = new char[sizeA];
     private String columns;
+
+    ArrayList<Ship> ListShips = new ArrayList<>();
 
     public Field() {
         Init();
@@ -43,11 +47,16 @@ public class Field {
         }
    }
 
+   public void addShip(String name, int length){
+        ListShips.add (new Ship(name, length));
+   }
+
    // Print field
-    public void printField() {
-        System.out.println(columns);
+    public String printField() {
+        StringBuilder output = new StringBuilder(columns).append("\n");
         for (int i = 0; i < sizeA; i++)
-            System.out.println(rows[i] + " " + str(field[i]));
+            output.append(rows[i]).append(" ").append(str(field[i])).append("\n");
+        return output.toString();
     }
 
     // sub method for printing field
@@ -58,4 +67,14 @@ public class Field {
         return output.toString();
     }
 
+    public boolean addShipToField(Ship a, int[][] coord) {
+
+        System.out.println("Error! Wrong length of the " + a.printName() + "! Try again:\n");
+
+        System.out.println("Error! Wrong ship location! Try again:\n");
+
+        System.out.println("Error! You placed it too close to another one. Try again:\n");
+
+        return false;
+    }
 }

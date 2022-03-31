@@ -1,37 +1,44 @@
 package battleship;
 
-import java.util.ArrayList;
-
 public class Main {
-
 
 
     public static void main(String[] args) {
         // Write your code here
+
+        // Создание класса для чтоения входящих данных
+        Input input = new Input();
+
+        // Создание поля боя
         Field field = new Field();
-        field.printField();
+        System.out.println(field.printField());
 
-        ArrayList<Ship> ListShips = new ArrayList<>();
-        addNewShips(ListShips);
+        // Создание кораблей
+        addNewShips(field);
 
-for (Ship a : ListShips)
-    System.out.println(a.printName());
+        // Установка кораблей на поле
+        for (Ship a : field.ListShips) {
+            boolean exit = true;
+            do {
+                System.out.println(a.printName());
+                int[][] coord = new int[2][2];
+
+                // Прочитать данные (если не "буквацифра буквацифра" - false)
+                if (!input.getCoordShip(coord)) exit = false;
+
+                // Добавить корабль на поле (если не получается - false)
+                else if (!field.addShipToField(a, coord)) exit = false;
+
+            } while (exit);
+        }
     }
 
-//  Enter the coordinates of the Aircraft Carrier (5 cells):
-//  Enter the coordinates of the Battleship (4 cells):
-//  Enter the coordinates of the Submarine (3 cells):
-//  Error! Wrong length of the Submarine! Try again:
-//  Error! Wrong ship location! Try again:
-//  Enter the coordinates of the Destroyer (2 cells):
-//  Error! You placed it too close to another one. Try again:
-
-    static void addNewShips(ArrayList<Ship> ListShips) {
-        ListShips.add(new Ship("Aircraft Carrier", 5));
-        ListShips.add(new Ship("Battleship", 4));
-        ListShips.add(new Ship("Submarine", 3));
-        ListShips.add(new Ship("Cruiser", 3));
-        ListShips.add(new Ship("Destroyer", 2));
+    static void addNewShips(Field field) {
+        field.addShip("Aircraft Carrier", 5);
+        field.addShip("Battleship", 4);
+        field.addShip("Submarine", 3);
+        field.addShip("Cruiser", 3);
+        field.addShip("Destroyer", 2);
     }
 
 }

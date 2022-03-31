@@ -3,6 +3,7 @@ package battleship;
 public class Ship {
     String type;
     int length;
+    int[][] coord;
     Boolean[] alive;
 
     public Ship(String name, int length) {
@@ -14,5 +15,4 @@ public class Ship {
         return type + " (" + length + " cells):";
     }
 
-    //        length = coord[0][1] - coord[1][1];
 }

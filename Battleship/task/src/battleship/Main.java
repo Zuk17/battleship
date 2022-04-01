@@ -21,13 +21,17 @@ public class Main {
             boolean exit = true;
             do {
                 System.out.println(a.printName());
-                int[][] coord = new int[2][2];
 
-                // Прочитать данные (если не "буквацифра буквацифра" - false)
-                if (!input.getCoordShip(coord)) exit = false;
+                // Прочитать два набора координат (если не получилось - null)
+                System.out.println("Reading coordinates successful.");
+                Coordinate begin = input.readCoord();
+                Coordinate end = input.readCoord();
+                System.out.println("Begin : " + begin.getCoord() + "\tEnd : " + end.getCoord() + "\n");
 
                 // Добавить корабль на поле (если не получается - false)
-                else if (!field.addShipToField(a, coord)) exit = false;
+                if (begin == null || end == null) {
+                    exit = !field.addShipToField(a, begin, end);
+                }
 
             } while (exit);
         }

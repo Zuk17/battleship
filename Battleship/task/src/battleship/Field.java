@@ -67,13 +67,17 @@ public class Field {
         return output.toString();
     }
 
-    public boolean addShipToField(Ship a, int[][] coord) {
+    public boolean addShipToField(Ship a,Coordinate begin,Coordinate end) {
 
-        System.out.println("Error! Wrong length of the " + a.printName() + "! Try again:\n");
+        System.out.println("Trying add ship to field");
 
-        System.out.println("Error! Wrong ship location! Try again:\n");
+//        System.out.println("Error! Wrong length of the " + a.printName() + "! Try again:\n");
+//
+//        System.out.println("Error! Wrong ship location! Try again:\n");
+//
+//        System.out.println("Error! You placed it too close to another one. Try again:\n");
 
-        System.out.println("Error! You placed it too close to another one. Try again:\n");
+        System.out.println("Ship " + a.printName() + " not added.");
 
         return false;
     }

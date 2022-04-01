@@ -10,20 +10,23 @@ public class Input {
         scanner = new Scanner(System.in);
     }
 
-    public boolean getCoordShip(int[][] coord) {
-        String[] inputString = scanner.nextLine().split(" ");
-        try {
-            coord[0][1] = inputString[0].charAt(1);
-            coord[1][1] = inputString[1].charAt(1);
+    //read single coordinate
+    public Coordinate readCoord() {
+        String inputString = scanner.next().toUpperCase();
+        if (inputString.matches("^[A-Z]+\\d+")) {
 
-            coord[0][0] = inputString[0].charAt(0); //regex перевести букву в цифру
-            coord[1][0] = inputString[1].charAt(0); //regex перевести букву в цифру
+            System.out.println("!" + inputString + "!");
 
-            return true;
+            //Буквенная часть
+            String coordX = inputString.split("[A-Z]+").toString();
+            String coordY = inputString.split("\\d+").toString();
 
-        } catch (Exception e) {
+            System.out.println("X = " + coordX + "\t\tY = " + coordY);
+
+            return new Coordinate(coordX, coordY);
+        } else {
             System.out.println("ERROR!!!!!!!!!!!\tWrong number or format of elements.!!!!!!!!!!!\tERROR\n");
-            return false;
+            return null;
         }
     }
 }

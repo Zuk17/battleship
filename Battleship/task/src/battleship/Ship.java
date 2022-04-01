@@ -3,7 +3,8 @@ package battleship;
 public class Ship {
     String type;
     int length;
-    int[][] coord;
+    Coordinate begin;
+    Coordinate end;
     Boolean[] alive;
 
     public Ship(String name, int length) {

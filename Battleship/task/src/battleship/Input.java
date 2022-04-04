@@ -14,16 +14,7 @@ public class Input {
     public Coordinate readCoord() {
         String inputString = scanner.next().toUpperCase();
         if (inputString.matches("^[A-Z]+\\d+")) {
-
-            System.out.println("!" + inputString + "!");
-
-            //Буквенная часть
-            String coordX = inputString.split("[A-Z]+").toString();
-            String coordY = inputString.split("\\d+").toString();
-
-            System.out.println("X = " + coordX + "\t\tY = " + coordY);
-
-            return new Coordinate(coordX, coordY);
+             return new Coordinate(inputString);
         } else {
             System.out.println("ERROR!!!!!!!!!!!\tWrong number or format of elements.!!!!!!!!!!!\tERROR\n");
             return null;

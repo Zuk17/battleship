@@ -6,35 +6,36 @@ public class Main {
     public static void main(String[] args) {
         // Write your code here
 
-        // Создание класса для чтоения входящих данных
+        // Создание класса для чтения входящих данных
         Input input = new Input();
 
         // Создание поля боя
         Field field = new Field();
-        System.out.println(field.printField());
+//        System.out.println(field.printField());
 
         // Создание кораблей
         addNewShips(field);
 
         // Установка кораблей на поле
         for (Ship a : field.ListShips) {
+            System.out.println(field.printField());
             boolean exit = true;
             do {
                 System.out.println(a.printName());
 
                 // Прочитать два набора координат (если не получилось - null)
-                System.out.println("Reading coordinates successful.");
                 Coordinate begin = input.readCoord();
                 Coordinate end = input.readCoord();
-                System.out.println("Begin : " + begin.getCoord() + "\tEnd : " + end.getCoord() + "\n");
 
                 // Добавить корабль на поле (если не получается - false)
-                if (begin == null || end == null) {
+                if (begin != null && end != null) {
+//                    System.out.println("Begin : " + begin.getCoord() + "\t\tEnd : " + end.getCoord() + "\n");
                     exit = !field.addShipToField(a, begin, end);
                 }
 
             } while (exit);
         }
+        System.out.println(field.printField());
     }
 
     static void addNewShips(Field field) {

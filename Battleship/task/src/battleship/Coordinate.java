@@ -20,6 +20,15 @@ class Coordinate {
         coordY = y;
     }
 
+    public String toString() {
+        return "[" + coordX + "," + coordY + "]";
+    }
+
+    public boolean equals(Coordinate One) {
+        return coordX == One.coordX && coordY == One.coordY;
+    }
+
+
     public int getX() {
         return coordX;
     }

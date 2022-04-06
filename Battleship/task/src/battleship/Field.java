@@ -1,6 +1,7 @@
 package battleship;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Field {
     private static int sizeA = 10;
@@ -11,7 +12,7 @@ public class Field {
     private boolean alive;
     private Mark[][] field;
 
-    ArrayList<Ship> ListShips = new ArrayList<>();
+    List<Ship> ListShips = new ArrayList<>();
 
     public Field(int sizeA, int size1) {
         Field.sizeA = Math.min(sizeA, 26);
@@ -102,8 +103,9 @@ public class Field {
     public String hit(Coordinate hitPlusOne) {
         if (isNotOnField(hitPlusOne))
             return "Error! You entered the wrong coordinates! Try again:";
+
         Coordinate hit = new Coordinate(hitPlusOne.getX() - 1, hitPlusOne.getY() - 1);
-        if (field[hit.getX()][hit.getY()] != Mark.SHIP) {
+        if (field[hit.getX()][hit.getY()] == Mark.FOG || field[hit.getX()][hit.getY()] == Mark.MISS) {
             field[hit.getX()][hit.getY()] = Mark.MISS;
             return "\nYou missed! Try again:\n";
         }
@@ -113,17 +115,24 @@ public class Field {
     }
 
     private String checkAlive(Coordinate hit) {
+
+        if (Main.$DEBUG) System.out.println("Hit:\t" + hit + "\t" + hit.getX() + "\t" + hit.getY() + "\n");
+
         for (Ship ship : ListShips)
-            if (ship.shipHit(hit)) {
-                if (ship.isAlive())
+            if (ship.shipHit(hit))
+                if (ship.isAlive()) {
                     return "\nYou hit a ship! Try again:\n";
-            } else {
-                ListShips.remove(ship);
-                if (!ListShips.isEmpty())
-                    return "\nYou sank a ship! Specify a new target:\n";
-            }
-        alive = false;
-        return "\nYou sank the last ship. You won. Congratulations!\n";
+                } else {
+                    ListShips.remove(ship);
+                    if (!ListShips.isEmpty())
+                        return "\nYou sank a ship! Specify a new target:\n";
+                    break;
+                }
+        if (ListShips.isEmpty()) {
+            alive = false;
+            return "\nYou sank the last ship. You won. Congratulations!\n";
+        }
+        return "dummy string";
     }
 
     public boolean isAlive() {

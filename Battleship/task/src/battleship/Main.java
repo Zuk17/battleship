@@ -18,6 +18,12 @@ public class Main {
         startGame(input, field);
     }
 
+    /* FixMe all bugs */
+
+    /* todo add players */
+
+    /* Optimize memory */
+
     private static void startGame(Input input, Field field) {
         System.out.println("The game starts!\n\n" + field.printField(Mark.FOG) + "\nTake a shot!\n");
         while (field.isAlive()) {
@@ -37,10 +43,8 @@ public class Main {
             Coordinate[] inputCoordinates;
             while (!ship.isAddedOnField()) {
                 if ($DEBUG) {
-                    inputCoordinates = new Coordinate[]{new Coordinate(ship.getType().getCoord1()),
-                            new Coordinate(ship.getType().getCoord2())};
-                } else
-                    inputCoordinates = input.readCoordShip();
+                    inputCoordinates = new Coordinate[]{new Coordinate(ship.getType().getCoord1()), new Coordinate(ship.getType().getCoord2())};
+                } else inputCoordinates = input.readCoordShip();
                 System.out.println(field.addShipToField(ship, new Coordinates(inputCoordinates)));
             }
         }

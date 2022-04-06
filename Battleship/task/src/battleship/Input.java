@@ -13,11 +13,15 @@ public class Input {
     //read single coordinate
     public Coordinate readCoord() {
         String inputString = scanner.next().toUpperCase();
-        if (inputString.matches("^[A-Z]+\\d+")) {
-             return new Coordinate(inputString);
+        if (inputString.matches("^[A-Z]\\d+")) {
+            return new Coordinate(inputString);
         } else {
             System.out.println("ERROR!!!!!!!!!!!\tWrong number or format of elements.!!!!!!!!!!!\tERROR\n");
             return null;
         }
+    }
+
+    public Coordinate[] readCoordShip() {
+        return new Coordinate[]{readCoord(), readCoord()};
     }
 }

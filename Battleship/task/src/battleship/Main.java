@@ -2,7 +2,6 @@ package battleship;
 
 public class Main {
 
-
     public static void main(String[] args) {
         // Write your code here
 
@@ -10,40 +9,31 @@ public class Main {
         Input input = new Input();
 
         // Создание поля боя
-        Field field = new Field();
-//        System.out.println(field.printField());
-
-        // Создание кораблей
-        addNewShips(field);
-
+        Field field = new Field(10, 10);
         // Установка кораблей на поле
-        for (Ship a : field.ListShips) {
-            System.out.println(field.printField());
-            boolean exit = true;
-            do {
-                System.out.println(a.printName());
+        addShips(input, field);
 
-                // Прочитать два набора координат (если не получилось - null)
-                Coordinate begin = input.readCoord();
-                Coordinate end = input.readCoord();
+        startGame(input, field);
+    }
 
-                // Добавить корабль на поле (если не получается - false)
-                if (begin != null && end != null) {
-//                    System.out.println("Begin : " + begin.getCoord() + "\t\tEnd : " + end.getCoord() + "\n");
-                    exit = !field.addShipToField(a, begin, end);
-                }
-
-            } while (exit);
+    private static void startGame(Input input, Field field) {
+        System.out.println("The game starts!\n\n" + field.printField(Mark.FOG) + "\nTake a shot!\n");
+        while (field.isAlive()) {
+            System.out.println(field.hit(input.readCoord()));
+            System.out.println(field.printField(Mark.FOG));
         }
-        System.out.println(field.printField());
+
+        System.out.println(field.printField(Mark.SHIP));
     }
 
-    static void addNewShips(Field field) {
-        field.addShip("Aircraft Carrier", 5);
-        field.addShip("Battleship", 4);
-        field.addShip("Submarine", 3);
-        field.addShip("Cruiser", 3);
-        field.addShip("Destroyer", 2);
+    private static void addShips(Input input, Field field) {
+        for (Ship ship : field.ListShips) {
+            System.out.println("\n" + field.printField(Mark.SHIP));
+            System.out.println(ship.toString() + ":\n");
+            while (!ship.isAlive()) {
+                System.out.println(field.addShipToField(ship, new Coordinates(input.readCoordShip())));
+            }
+        }
+        System.out.println(field.printField(Mark.SHIP));
     }
-
 }

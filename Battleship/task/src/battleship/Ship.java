@@ -1,31 +1,45 @@
 package battleship;
 
-public class Ship {
-    private final String type;
-    private final int length;
-    private Coordinate begin;
-    private Coordinate end;
-    private Boolean[] alive;
+import java.util.ArrayList;
 
-    public Ship(String name, int length) {
+public class Ship {
+    private final ShipTypes type;
+    private final int length;
+    private ArrayList<Coordinate> coordAlive;
+
+    public Ship(ShipTypes name, int length) {
         this.type = name;
         this.length = length;
+        coordAlive = new ArrayList<>();
     }
 
-    public String printName() {
-        return type + " (" + length + " cells):";
+    public String toString() {
+        return type + " (" + length + " cells)";
     }
 
-    public boolean checkLength(Coordinate begin, Coordinate end) {
-        int lengthX = Math.abs(begin.getX() - end.getX());
-        int lengthY = Math.abs(begin.getY() - end.getY());
-        return lengthX * lengthY == 0 && (lengthX == length - 1  || lengthY == length - 1);
+    public boolean checkLength(Coordinates coord) {
+        return (coord.getXLength() == length - 1 || coord.getYLength() == length - 1);
     }
 
-    public void setCoords(Coordinate begin, Coordinate end) {
-        this.begin = begin;
-        this.end = end;
-        alive = new Boolean[length];
-        for (int i = 0; i < length; i++) alive[i] = true;
+    public void setCoords(Coordinates coords) {
+        if (coords.getXLength() == 0)
+            for (int i = coords.minY - 1; i < coords.maxY; i++)
+                coordAlive.add(new Coordinate(coords.minX -1, i));
+        else
+            for (int i = coords.minX - 1; i < coords.maxX; i++)
+                coordAlive.add(new Coordinate(i, coords.minY -1));
+    }
+
+    public boolean shipHit(Coordinate hit) {
+        return coordAlive.remove(hit);
+    }
+
+    public boolean isAlive() {
+        return coordAlive.isEmpty();
+    }
+
+    public ArrayList<Coordinate> getCoordAlive() {
+        return coordAlive;
     }
 }
+

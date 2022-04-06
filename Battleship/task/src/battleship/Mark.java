@@ -6,11 +6,14 @@ public enum Mark {
     HIT('X'),
     MISS('M');
 
-    private char appearence;
+    private final char appearance;
 
     Mark(char c) {
-        this.appearence = c;
+        this.appearance = c;
     }
 
-    String valueOf() { return String.valueOf(appearence); }
+    String valueOf() {
+        return String.valueOf(appearance);
+    }
 }
+

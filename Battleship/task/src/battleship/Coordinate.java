@@ -1,38 +1,23 @@
 package battleship;
 
-public class Coordinate {
-    private int coordX;
-    private int coordY;
+class Coordinate {
+    private final int coordX;
+    private final int coordY;
 
     public Coordinate(String inputStr) {
-        parseInputStr(inputStr);
+        StringBuilder number = new StringBuilder();
+
+        for (int i = 1; i < inputStr.length(); i++) {
+            number.append(inputStr.charAt(i));
+        }
+
+        coordX = inputStr.charAt(0) - 'A' + 1;
+        coordY = Integer.parseInt(number.toString());
     }
 
-    private void parseInputStr(String inputStr) {
-
-//        System.out.println("!" + inputStr + "!");
-
-        StringBuilder a = new StringBuilder();
-        StringBuilder b = new StringBuilder();
-
-        for (int i = 0; i < inputStr.length(); i++) {
-            if (Character.isDigit(inputStr.charAt(i))) {
-                b.append(inputStr.charAt(i));
-            } else a.append(inputStr.charAt(i));
-        }
-        a.reverse();
-
-        coordX = 0;
-        for (int i = 0; i < a.length(); i++) {
-            int number = a.charAt(i) - 'A' + 1;
-            coordX += number * (int) Math.pow(26, i);
-        }
-        coordY = Integer.parseInt(b.toString());
-//        System.out.println("X = " + coordX + "\t\tY = " + coordY);
-    }
-
-    public String getCoord() {
-        return "[ " + coordX + ", " + coordY + " ]";
+    public Coordinate(int x, int y) {
+        coordX = x;
+        coordY = y;
     }
 
     public int getX() {

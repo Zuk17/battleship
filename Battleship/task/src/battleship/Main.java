@@ -4,50 +4,34 @@ public class Main {
 
     public final static boolean $DEBUG = false;
 
+
     public static void main(String[] args) {
         // Write your code here
 
         // Создание класса для чтения входящих данных
         Input input = new Input();
 
-        // Создание поля боя
-        Field field = new Field(10, 10);
-        // Установка кораблей на поле
-        addShips(input, field);
+        // Инициализация игроков
+        Player[] players = new Player[2];
+        players[0] = new Player("Player 1", input);
+        players[1] = new Player("Player 2", input);
 
-        startGame(input, field);
-    }
+        System.out.println("\nThe game starts!\n\n");
 
-    /* FixMe all bugs */
+        Player prevPlayer = players[1];
+        do {
+            for (Player a : players) {
+                System.out.println(prevPlayer.getField().printField(Mark.FOG));
+                System.out.println(a.getField().printField(Mark.SHIP));
 
-    /* todo add players */
+                System.out.println(a.getName() + ", it's your turn:\n");
+                System.out.println(prevPlayer.getField().hit(input.readCoord()));
 
-    /* Optimize memory */
-
-    private static void startGame(Input input, Field field) {
-        System.out.println("The game starts!\n\n" + field.printField(Mark.FOG) + "\nTake a shot!\n");
-        while (field.isAlive()) {
-            System.out.println(field.hit(input.readCoord()));
-            System.out.println(field.printField(Mark.FOG));
-        }
-
-        System.out.println(field.printField(Mark.SHIP));
-    }
-
-    private static void addShips(Input input, Field field) {
-
-        for (Ship ship : field.ListShips) {
-            System.out.println("\n" + field.printField(Mark.SHIP));
-            System.out.println(ship.toString() + ":\n");
-
-            Coordinate[] inputCoordinates;
-            while (!ship.isAddedOnField()) {
-                if ($DEBUG) {
-                    inputCoordinates = new Coordinate[]{new Coordinate(ship.getType().getCoord1()), new Coordinate(ship.getType().getCoord2())};
-                } else inputCoordinates = input.readCoordShip();
-                System.out.println(field.addShipToField(ship, new Coordinates(inputCoordinates)));
+                a.changePlayer(input);
+                prevPlayer = a;
             }
-        }
-        System.out.println(field.printField(Mark.SHIP));
+        } while (players[0].getField().isAlive() && players[1].getField().isAlive());
+
+        System.out.println("Game end!");
     }
 }

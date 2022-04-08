@@ -46,6 +46,10 @@ public class Field {
         StringBuilder output = new StringBuilder(columns).append("\n");
         for (int i = 0; i < sizeA; i++)
             output.append(rows[i]).append(" ").append(str(field[i], fog)).append("\n");
+
+        if (fog == Mark.FOG) output.append("---------------------");
+        else output.append("\n");
+
         return output.toString();
     }
 

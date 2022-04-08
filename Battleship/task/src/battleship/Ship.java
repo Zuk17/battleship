@@ -6,7 +6,7 @@ import java.util.List;
 public class Ship {
     private final ShipTypes type;
     private final int length;
-    private List<Coordinate> coordAlive;
+    private final List<Coordinate> coordAlive;
 
     boolean addedOnField;
 
@@ -32,7 +32,7 @@ public class Ship {
         else
             for (int i = coords.minX - 1; i < coords.maxX; i++)
                 coordAlive.add(new Coordinate(i, coords.minY - 1));
-        if (Main.$DEBUG) System.out.println(coordAlive.toString());
+        if (Main.$DEBUG) System.out.println(coordAlive);
         addedOnField = true;
     }
 

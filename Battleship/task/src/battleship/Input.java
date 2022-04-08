@@ -10,6 +10,11 @@ public class Input {
         scanner = new Scanner(System.in);
     }
 
+    public void isNextTurn() {
+        scanner.nextLine();
+    }
+
+
     //read single coordinate
     public Coordinate readCoord() {
         String inputString = scanner.next().toUpperCase();
